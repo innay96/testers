@@ -23,7 +23,16 @@ class TestCase{
 			return *this;
 		}        
 		check_different(t t1,t t2);     // check operator !=. 
-		check_function(template<>f, t t1,t t2); // check a function int->int.
+		ctemplate <typename F, typename T1, typename T2>
+		 TestCase& check_function(F f, T1 t1,T2 t2){  // check a function int->int.
+			auto t3=f(t1);
+			if(t3==t2) {success++; return *this;}
+			else {
+				os << " Function should return "<< t2 << " but returned "<< t3<< "!"<< endl;
+				fail++;
+				return *this;
+			}
+		} 
 		check_output(int, string);    // check output operator <<
 		void print();                      // prints how many tests passed and faild
 		string getString(){ return s;}
