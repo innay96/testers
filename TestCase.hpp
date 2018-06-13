@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <sstream>
 
 using namespace std;
 #pragma once
@@ -17,7 +18,7 @@ class TestCase{
 		template <typename T1, typename T2>
 		TestCase& check_equal(T1 t1,T2 t2){ // check operator ==. 
 			if(!(t1 == t2)){
-				os << s <<" Failure in test  #1: "<< t1 << " should equal "<< t2<< "!"<< endl;
+				os << s <<": Failure in test #"<<  (success+fail+1) << ": "<< t1 << " should equal "<< t2<< "!"<< endl;
 				fail++;
 				return *this;
 			} 
@@ -29,7 +30,7 @@ class TestCase{
 		if(t != f){
 			success++;
         }
-		else {os << s<< ": "<< "Failure in test #"<<  (success+fail+1) << ": "<< t << " should not equal " << f << "!"<<endl;
+		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": "<< t << " should not equal " << f << "!"<<endl;
 		fail++;
 		}
 		return (*this);
@@ -42,7 +43,7 @@ class TestCase{
 			auto t3=f(t1);
 			if(t3==t2) {success++; return *this;}
 			else {
-				os << " Function should return "<< t2 << " but returned "<< t3<< "!"<< endl;
+				os << s << ": Failure in test #"<<  (success+fail+1) <<": Function should return "<< t2 << " but returned "<< t3<< "!"<< endl;
 				fail++;
 				return *this;
 			}
@@ -50,13 +51,13 @@ class TestCase{
 		
 		
 		template <typename T>
-	 TestCase& check_output(T t1, string s) {  //check output<<
+	 TestCase& check_output(T t1, string s1) {  //check output<<
 		ostringstream string;
         string << t1;
-        if (string.str().compare(s) == 0){
+        if (string.str().compare(s1) == 0){
             success++;
         }
-		else {os << s<< ": "<< "Failure in test #"<<  (success+fail+1) << ": string value should be "<<s << " but is " << string.str() << "!"<<endl;
+		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": string value should be "<<s << " but is " << string.str() << "!"<<endl;
 		fail++;
 		}
 		return (*this);
@@ -70,3 +71,4 @@ class TestCase{
 		int getSucc(){ return success;}
 
 };
+
