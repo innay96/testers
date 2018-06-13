@@ -11,6 +11,8 @@ class TestCase{
 		ostream& os;
 		int fail=0, success=0;
 	public:
+	
+	
 		TestCase(string s, ostream& os): os(cerr){this->s = s; this->os << "";}   // constructor
 		template <typename T1, typename T2>
 		TestCase& check_equal(T1 t1,T2 t2){ // check operator ==. 
@@ -22,7 +24,19 @@ class TestCase{
 			success++;
 			return *this;
 		}        
-		check_different(t t1,t t2);     // check operator !=. 
+		template <typename T, typename F>
+        TestCase& check_different(T t, F f) {   //check if different !=
+		if(t != f){
+			success++;
+        }
+		else {os << s<< ": "<< "Failure in test #"<<  (success+fail+1) << ": "<< t << " should not equal " << f << "!"<<endl;
+		fail++;
+		}
+		return (*this);
+	}
+		
+		
+		
 		ctemplate <typename F, typename T1, typename T2>
 		 TestCase& check_function(F f, T1 t1,T2 t2){  // check a function int->int.
 			auto t3=f(t1);
@@ -33,7 +47,22 @@ class TestCase{
 				return *this;
 			}
 		} 
-		check_output(int, string);    // check output operator <<
+		
+		
+		template <typename T>
+	 TestCase& check_output(T t1, string s) {  //check output<<
+		stringstream string;
+        string << t1;
+        if (string.str().compare(s) == 0){
+            success++;
+        }
+		else {os << s<< ": "<< "Failure in test #"<<  (success+fail+1) << ": string value should be "<<s << " but is " << string.str() << "!"<<endl;
+		fail++;
+		}
+		return (*this);
+	}
+	
+	
 		void print();                      // prints how many tests passed and faild
 		string getString(){ return s;}
 		ostream& getOs(){ return os;}
