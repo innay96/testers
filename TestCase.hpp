@@ -16,26 +16,27 @@ class TestCase{
 	
 		TestCase(string s, ostream& os): os(cerr){this->s = s; this->os << "";}   // constructor
 		template <typename T1, typename T2>
-		TestCase& check_equal(T1 t1,T2 t2){ // check operator ==. 
+		TestCase& check_equal(const T1& t1,const T2& t2){ // check operator ==. 
 			if(!(t1 == t2)){
-				this->os << this->s <<": Failure in test #"<<  (success+fail+1) << ": "<< t1 << " should equal "<< t2<< "!"<< endl;
+				os << s <<": Failure in test #"<<  (success+fail+1) << ": "<< t1 << " should equal "<< t2<< "!"<< endl;
 				fail++;
 				return *this;
 			} 
 			success++;
 			return *this;
 		}        
-		template <typename T>
-        TestCase& check_different(const T &t,const T &f) {   //check if different !=
-		if(t != f){
-		      success++;
-        }
-		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": "<< t << " should differ than " << f << "!"<<endl;
-		 fail++;
+
+		template <typename T, typename F>
+        TestCase& check_different(const T& t,const F& f) {   //check if different !=
+		if (t != f) {
+		success++;
+}
+		else {
+            	os << s << ": Failure in test #" << (success+fail+1) << ": " << t << " should not equal " << f << endl;
+            fail++;
 		}
 		return (*this);
 	}
-		
 		
 		
 		template <typename F, typename T1, typename T2>
