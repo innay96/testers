@@ -26,12 +26,12 @@ class TestCase{
 			return *this;
 		}        
 		template <typename T>
-        TestCase& check_different(T t, T f) {   //check if different !=
+        TestCase& check_different(const T &t,const T &f) {   //check if different !=
 		if(t != f){
-			success++;
+		      success++;
         }
 		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": "<< t << " should differ than " << f << "!"<<endl;
-		fail++;
+		 fail++;
 		}
 		return (*this);
 	}
