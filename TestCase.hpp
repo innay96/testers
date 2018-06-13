@@ -70,8 +70,6 @@ class TestCase{
 
 
 		}                     
-		int getFail(){ return fail;}
-		int getSucc(){ return success;}
 
 };
 
