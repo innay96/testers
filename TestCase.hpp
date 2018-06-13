@@ -27,11 +27,12 @@ class TestCase{
 		}        
 		template <typename T, typename F>
         TestCase& check_different(T t, F f) {   //check if different !=
-		if(t != f){
-			success++;
+		if(t == f){
+			os << s<< ": Failure in test #"<<  (success+fail+1) << ": "<< t << " should equal " << f << "!"<<endl;
+			fail++;
         }
-		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": "<< t << " should differ than " << f << "!"<<endl;
-		fail++;
+		else {
+		success++;
 		}
 		return (*this);
 	}
