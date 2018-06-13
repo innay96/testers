@@ -9,16 +9,16 @@ using namespace std;
 class TestCase{
 	private:
 		string s;
-		ostream& os;
+		ostream* os;
 		int fail=0, success=0;
 	public:
 	
 	
-		TestCase(string s, ostream& os): os(cerr){this->s = s; this->os << "";}   // constructor
+		TestCase(string s, ostream& os){this->s = s; this->os = &os;}   // constructor
 		template <typename T1, typename T2>
 		TestCase& check_equal(const T1& t1,const T2& t2){ // check operator ==. 
 			if(!(t1 == t2)){
-				os << s <<": Failure in test #"<<  (success+fail+1) << ": "<< t1 << " should equal "<< t2<< "!"<< endl;
+				*os << s <<": Failure in test #"<<  (success+fail+1) << ": "<< t1 << " should equal "<< t2<< "!"<< endl;
 				fail++;
 				return *this;
 			} 
@@ -32,7 +32,7 @@ class TestCase{
 		success++;
 }
 		else {
-            	os << s << ": Failure in test #" << (success+fail+1) << ": " << t << " should not equal " << f << endl;
+            	*os << s << ": Failure in test #" << (success+fail+1) << ": " << t << " should not equal " << f << endl;
             fail++;
 		}
 		return (*this);
@@ -44,7 +44,7 @@ class TestCase{
 			auto t3=f(t1);
 			if(t3==t2) {success++; return *this;}
 			else {
-				os << s << ": Failure in test #"<<  (success+fail+1) <<": Function should return "<< t2 << " but returned "<< t3<< "!"<< endl;
+				*os << s << ": Failure in test #"<<  (success+fail+1) <<": Function should return "<< t2 << " but returned "<< t3<< "!"<< endl;
 				fail++;
 				return *this;
 			}
@@ -58,16 +58,18 @@ class TestCase{
         if (string.str().compare(s1) == 0){
             success++;
         }
-		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": string value should be "<<s1 << " but is " << string.str() <<endl;
+		else {*os << s<< ": Failure in test #"<<  (success+fail+1) << ": string value should be "<<s1 << " but is " << string.str() <<endl;
 		fail++;
 		}
 		return (*this);
 	}
 	
 	
-		void print();                      // prints how many tests passed and faild
-		string getString(){ return s;}
-		ostream& getOs(){ return os;}
+		void print(){ // prints how many tests passed and faild
+			*os << this->s << ": " << this->getFail() << " failed, " << this->getSucc() << " passed, " << this->getFail() + this->getSucc() << " total." << endl << "---" << endl;
+
+
+		}                     
 		int getFail(){ return fail;}
 		int getSucc(){ return success;}
 
