@@ -51,7 +51,7 @@ class TestCase{
 		
 		template <typename T>
 	 TestCase& check_output(T t1, string s) {  //check output<<
-		basic_stringstream string;
+		ostringstream string;
         string << t1;
         if (string.str().compare(s) == 0){
             success++;
