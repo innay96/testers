@@ -66,7 +66,7 @@ class TestCase{
 	
 	
 		void print(){ // prints how many tests passed and faild
-			*os << this->s << ": " << this->getFail() << " failed, " << this->getSucc() << " passed, " << this->getFail() + this->getSucc() << " total." << endl << "---" << endl;
+			*os << this->s << ": " << fail << " failed, " << success << " passed, " << fail + success << " total." << endl << "---" << endl;
 
 
 		}                     
