@@ -30,7 +30,7 @@ class TestCase{
 		if(t != f){
 			success++;
         }
-		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": "<< t << " should not equal " << f << "!"<<endl;
+		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": "<< t << " should differ than " << f << "!"<<endl;
 		fail++;
 		}
 		return (*this);
@@ -57,7 +57,7 @@ class TestCase{
         if (string.str().compare(s1) == 0){
             success++;
         }
-		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": string value should be "<<s << " but is " << string.str() << "!"<<endl;
+		else {os << s<< ": Failure in test #"<<  (success+fail+1) << ": string value should be "<<s1 << " but is " << string.str() << "!"<<endl;
 		fail++;
 		}
 		return (*this);
