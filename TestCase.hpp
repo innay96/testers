@@ -18,7 +18,7 @@ class TestCase{
 		template <typename T1, typename T2>
 		TestCase& check_equal(T1 t1,T2 t2){ // check operator ==. 
 			if(!(t1 == t2)){
-				os << s <<": Failure in test #"<<  (success+fail+1) << ": "<< t1 << " should equal "<< t2<< "!"<< endl;
+				this->os << this->s <<": Failure in test #"<<  (success+fail+1) << ": "<< t1 << " should equal "<< t2<< "!"<< endl;
 				fail++;
 				return *this;
 			} 
