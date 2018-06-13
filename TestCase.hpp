@@ -37,7 +37,7 @@ class TestCase{
 		
 		
 		
-		ctemplate <typename F, typename T1, typename T2>
+		template <typename F, typename T1, typename T2>
 		 TestCase& check_function(F f, T1 t1,T2 t2){  // check a function int->int.
 			auto t3=f(t1);
 			if(t3==t2) {success++; return *this;}
